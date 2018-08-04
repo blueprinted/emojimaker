@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+<meta name="format-detection" content="telephone=no" />
+<title>Emoji Maker</title>
+<meta name="keywords" content="Emoji Maker" />
+<meta name="description" content="Emoji Maker" />
+<meta http-equiv="X-UA-Compatible" content="IE=10;chrome=1;" />
+<meta name="MobileOptimized" content="320" />
+<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+<script type="text/javascript" src="static/j/rem.js"></script>
+<link rel="stylesheet" type="text/css" href="static/c/swiper.min.css"/>
+<link rel="stylesheet" type="text/css" href="static/c/animate.css"/>
+<link rel="stylesheet" href="static/c/style.css" />
+<link rel="stylesheet" href="static/c/index.css" />
+<script type="text/javascript" src="static/j/common.js"></script>
+<script type="text/javascript">if(inIOSApp()){loadcss('iniosapp')}else if(inAndroidApp()){loadcss('inandroidapp')}else{loadcss('inweb')}</script>
+</head>
+<body>
+<div id="wrapper" class="wrapper">
+	<div id="emaker-head" class="emaker-head"><button class="btn-reset">Reset</button><div class="emaker-title">Emoji Maker</div><button class="btn-save">Save</button></div>
+	<div id="media-test"></div>
+	<div id="emaker-drawboard" class="emaker-drawboard" sheight="636" yheight="1334">
+		<canvas id="bg-line" width="1000px" height="1000px" style="position:absolute;z-index:1111;pointer-events:none">Your browser does not support the HTML5 canvas tag.</canvas>
+	</div>
+	<div id="emaker-tabs" class="emaker-tabs">
+		<div id="tabs-wrapper" class="tabs-wrapper"></div>
+	</div>
+	<div id="emaker-boards" class="emaker-boards"></div>
+</div><!--//.wrapper-->
+<div id="debug"></div>
+<script type="text/javascript" src="static/j/jquery-2.1.0.min.js"></script>
+<script type="text/javascript" src="static/j/swiper.jquery.min.js"></script>
+<script type="text/javascript" src="static/j/hammer.min.js"></script>
+<script type="text/javascript" src="static/j/hammer-time.min.js"></script>
+<script type="text/javascript" src="static/j/jquery.hammer.js"></script>
+<script type="text/javascript" src="static/j/jquery.hammer.emojimaker.js"></script>
+<script type="text/javascript" src="static/j/iscroll.js"></script>
+<script type="text/javascript" src="static/j/global.js"></script>
+<script type="text/javascript" src="static/j/var.js"></script>
+<script type="text/javascript" src="static/j/index.js"></script>
+<script type="text/javascript">
+var hasEdited = false;
+function getResult() {
+	if(inIOSApp()) {
+		hasEdited=false;return {"hasEdited":emojiMaker.isChanged()?1:0, "imageData":emojiMaker.save().replace(/^data[^,]+base64,/i, '')}
+	} else {
+		if(!emojiMaker.isLocked()){
+			var result = JSMethod.saveData(emojiMaker.isChanged(), emojiMaker.save().replace(/^data[^,]+base64,/i, ''));
+			if(0 === result){
+				window.confirm('success');
+			} else if (1 === result) {
+				window.alert('maxsize');
+				emojiMaker.setChanged();
+			} else if (2 === result) {
+				window.alert('Nothing to save.');
+			} else {
+				window.alert('failed');
+			}
+		} else {
+			window.alert('locked');
+		}
+	}
+}
+
+function checkLoaded() {
+}
+
+function reset() {
+	emojiMaker.reset(function(){
+		$('#emaker-boards .emoji-item[icon-delete="true"]').removeClass('active');
+		$('#emaker-boards .emoji-item[icon-delete!="true"]').removeClass(emojiItemActiveClass);
+		tabSwiper.slideTo(0);
+		$(boardScroller).each(function(idx){
+			boardScroller[idx]&&boardScroller[idx].scrollTo(0,0,1000);
+		});
+		emakerAppendChild($('#tabs-swiper>.swiper-wrapper>.swiper-slide:first .emoji-item[icon-delete!="true"]:first').attr('id'), false, false);
+	});
+}
+
+function backPressed() {
+	if(emojiMaker.isChanged()){
+		window.confirm('close', function(){
+			JSMethod.finishWebView();
+		});
+	}else{
+		JSMethod.finishWebView();
+	}
+}
+</script>
+</body>
+</html>
