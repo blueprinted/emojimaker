@@ -167,7 +167,6 @@ var boards = [
 	{
 		key: 'headdress', isface: 0, zindex: 8, dragged: true, items: [
 			{ id: 0, isdelete: true, icon: 'static/i/icon-delete2.png', src: '', pos: {} },
-			{ id: 48, icon: 'static/i/icon/icon-headdress-48.png', src: 'static/i/emoji/emoji-headdress-48.png', pos: { left: 69, top: 90 } },
 			{ id: 49, icon: 'static/i/icon/icon-headdress-49.png', src: 'static/i/emoji/emoji-headdress-49.png', pos: { left: 17, top: 251 } },
 			{ id: 50, icon: 'static/i/icon/icon-headdress-50.png', src: 'static/i/emoji/emoji-headdress-50.png', pos: { left: 243, top: 242 } },
 			{ id: 51, icon: 'static/i/icon/icon-headdress-51.png', src: 'static/i/emoji/emoji-headdress-51.png', pos: { left: 243, top: 242 } },
