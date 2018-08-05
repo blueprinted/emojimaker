@@ -199,7 +199,7 @@ function hash(string, length) {
 	var start = 0;
 	var i = 0;
 	var result = '';
-	filllen = length - string.length % length;
+	var filllen = length - string.length % length;
 	for(i = 0; i < filllen; i++){
 		string += "0";
 	}

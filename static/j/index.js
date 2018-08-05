@@ -160,3 +160,116 @@ function emakerAppendChild(id, ani, changed) {
 	}
 	return true;
 }
+
+var dataForWeixinShare = {
+    title: 'EmojiMaker',
+    content: '表情在线制作',
+    imgurl: 'https://www.bolatoo.com/h5/emojimaker/static/i/share.png',
+    contenturl: 'https://www.bolatoo.com/h5/emojimaker/?ADTAG=tec.wc.sh'
+}
+var dataForWeixinShareTmp = {};
+var bindShared = false;
+function bindShare(dataForShare) {
+	var title = dataForShare.title;
+	var desc = dataForShare.content;
+	var link = dataForShare.contenturl;
+	var imgUrl = dataForShare.imgurl;
+	wx.onMenuShareTimeline({
+		title: desc,
+		link: link,
+		imgUrl: imgUrl,
+		success: function (res) {
+			try{MtaH5.clickStat('wxTimeline_succ')}catch(e){}
+		},
+		cancel: function (res) {
+			try{MtaH5.clickStat('wxTimeline_cancel')}catch(e){}
+		},
+		fail: function (res) {
+			try{MtaH5.clickStat('wxTimeline_fail')}catch(e){}
+		}
+	});
+	wx.onMenuShareAppMessage({
+		title: title,
+		desc: desc,
+		link: link,
+		imgUrl: imgUrl,
+		success: function (res) {
+			try{MtaH5.clickStat('wxAppmessage_succ')}catch(e){}
+		},
+		cancel: function (res) {
+			try{MtaH5.clickStat('wxAppmessage_cancel')}catch(e){}
+		},
+		fail: function (res) {
+			try{MtaH5.clickStat('wxAppmessage_fail')}catch(e){}
+		}
+	});
+	wx.onMenuShareQQ({
+		title: title,
+		desc: desc,
+		link: link,
+		imgUrl: imgUrl,
+		success: function (res) {
+			try{MtaH5.clickStat('wxShareQQ_succ')}catch(e){}
+		},
+		cancel: function (res) {
+			try{MtaH5.clickStat('wxShareQQ_cancel')}catch(e){}
+		},
+		fail: function (res) {
+			try{MtaH5.clickStat('wxShareQQ_fail')}catch(e){}
+		}
+	});
+	wx.onMenuShareWeibo({
+		title: title,
+		desc: desc,
+		link: link,
+		imgUrl: imgUrl,
+		success: function (res) {
+			try{MtaH5.clickStat('wxShareWeibo_succ')}catch(e){}
+		},
+		cancel: function (res) {
+			try{MtaH5.clickStat('wxShareWeibo_cancel')}catch(e){}
+		},
+		fail: function (res) {
+			try{MtaH5.clickStat('wxShareWeibo_fail')}catch(e){}
+		}
+	});
+	wx.onMenuShareQZone({
+		title: title,
+		desc: desc,
+		link: link,
+		imgUrl: imgUrl,
+		success: function (res) {
+			try{MtaH5.clickStat('wxShareQzone_succ')}catch(e){}
+		},
+		cancel: function (res) {
+			try{MtaH5.clickStat('wxShareQzone_cancel')}catch(e){}
+		},
+		fail: function (res) {
+			try{MtaH5.clickStat('wxShareQzone_fail')}catch(e){}
+		}
+	});
+}
+
+$(function () {
+    dataForWeixinShareTmp = $.extend(dataForWeixinShareTmp, dataForWeixinShare);
+    if (isWeiXin()) {
+        appendscript('//res.wx.qq.com/open/js/jweixin-1.2.0.js', '', function () {
+            appendscript('//www.bolatoo.com/api/weixin/jssdk/wxconfig.php?rurl=' + encodeURIComponent(document.location.href), '', function () {
+                var wxconfig = window['wxconfig'] || '';
+                if (wxconfig) {
+                    wx.config({
+                        appId: wxconfig.appId,
+                        timestamp: wxconfig.timestamp,
+                        nonceStr: wxconfig.nonceStr,
+                        signature: wxconfig.signature,
+                        jsApiList: ['onMenuShareTimeline','onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone']
+                    });
+                    wx.ready(function () {
+                        bindShare(dataForWeixinShareTmp);
+												bindShared = true;
+                    });
+                }
+            });
+        });
+    }
+});

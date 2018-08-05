@@ -16,7 +16,7 @@
 <link rel="stylesheet" type="text/css" href="static/c/animate.css"/>
 <link rel="stylesheet" href="static/c/style.css" />
 <link rel="stylesheet" href="static/c/index.css" />
-<script type="text/javascript" src="static/j/common.js"></script>
+<script type="text/javascript" src="static/j/common.js?v003"></script>
 <script type="text/javascript">if(inIOSApp()){loadcss('iniosapp')}else if(inAndroidApp()){loadcss('inandroidapp')}else{loadcss('inweb')}</script>
 </head>
 <body>
@@ -41,7 +41,7 @@
 <script type="text/javascript" src="static/j/iscroll.js"></script>
 <script type="text/javascript" src="static/j/global.js"></script>
 <script type="text/javascript" src="static/j/var.js"></script>
-<script type="text/javascript" src="static/j/index.js"></script>
+<script type="text/javascript" src="static/j/index.js?v004"></script>
 <script type="text/javascript">
 var hasEdited = false;
 function getResult() {
@@ -90,6 +90,18 @@ function backPressed() {
 		JSMethod.finishWebView();
 	}
 }
+</script>
+<script>
+  	var _mtac = {"performanceMonitor":1};
+  	(function() {
+  		var mta = document.createElement("script");
+  		mta.src = "//pingjs.qq.com/h5/stats.js?v2.0.4";
+  		mta.setAttribute("name", "MTAH5");
+  		mta.setAttribute("sid", "500629699");
+  		mta.setAttribute("cid", "500629700");
+  		var s = document.getElementsByTagName("script")[0];
+  		s.parentNode.insertBefore(mta, s);
+  	})();
 </script>
 </body>
 </html>

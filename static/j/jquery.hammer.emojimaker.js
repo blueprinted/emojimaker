@@ -1,7 +1,7 @@
 /*
   jquery.hammer.emojimaker.js
   v1.0.0
-  zouchao@sogou-inc.com
+  blueprinted@qq.com
   2016-12-07
  */
 (function(factory){
@@ -234,7 +234,7 @@
 						}
 					});
 				}
-				
+
 				//tap emoji
         $ele.data('hammer').on('tap', function (e) {
             e.preventDefault();
